@@ -47,7 +47,7 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 
 = 0.3.1 (2008-08-16): =
 * Updated for PHP4 Support
-* Restored end PHP tag at end of script
+* Restored missing PHP tag
 
 = 0.3 (2008-08-13): =
 * Initial Public Release
