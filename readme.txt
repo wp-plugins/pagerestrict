@@ -3,7 +3,7 @@ Contributors: sivel
 Tags: pages, page, restrict, restriction, logged in, cms
 Requires at least: 2.0
 Tested up to: 2.6
-Stable tag: 0.3
+Stable tag: 0.3.1
 
 Restrict certain pages to logged in users.
 
@@ -44,6 +44,10 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 1. Enjoy.
 
 == Change Log ==
+
+= 0.3.1 (2008-08-16): =
+* Updated for PHP4 Support
+* Restored end PHP tag at end of script
 
 = 0.3 (2008-08-13): =
 * Initial Public Release

@@ -5,7 +5,7 @@ Plugin URI: http://sivel.net/category/wordpress/plugins/
 Description: Restrict certain pages to logged in users
 Author: Matt Martz <mdmartz@sivel.net>
 Author URI: http://sivel.net/
-Version: 0.3
+Version: 0.3.1
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
         Page Restrict is released under the GNU Lesser General Public License (LGPL)
@@ -13,7 +13,7 @@ Version: 0.3
 */
 
 // Set Page Restrict Version Number
-$pr_version = '0.3';
+$pr_version = '0.3.1';
 
 // Get Specific Page Restrict Option
 function pr_get_opt($option) {
@@ -56,11 +56,8 @@ function pr_no_cache_headers() {
 	global $user_ID;
 	get_currentuserinfo();
         if (!$user_ID) {
-		$current_tz = date_default_timezone_get();
-		date_default_timezone_set('GMT');
 		header('Cache-Control: no-cache, must-revalidate');
-		header('Expires: ' . date('r', strtotime('last week'))); 
-		date_default_timezone_set($current_tz);
+		header('Expires: ' . gmdate('r', strtotime('last week'))); 
 	}
 }
 
@@ -183,3 +180,4 @@ add_action('send_headers','pr_no_cache_headers');
 
 // Add Filters
 add_filter('the_content','pr_page_restrict');
+?>
