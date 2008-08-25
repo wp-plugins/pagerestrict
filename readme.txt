@@ -2,7 +2,7 @@
 Contributors: sivel
 Tags: pages, page, restrict, restriction, logged in, cms
 Requires at least: 2.0
-Tested up to: 2.6
+Tested up to: 2.6.1
 Stable tag: 1.4
 
 Restrict certain pages to logged in users.
