@@ -46,13 +46,13 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 == Change Log ==
 
 = 1.4.1 (2008-08-25) : =
-* Added back no_cache add_action that was lost in the admin seperation
+* Added back no_cache add_action that was lost in the admin separation
 * Removed duplicate add_action for the admin page
 
 = 1.4 (2008-08-25): =
 * Updated version number scheme
 * Updated code for readability
-* Moved admin functionality to serperate file included only when is_admin is true
+* Moved admin functionality to separate file included only when is_admin is true
 
 = 0.3.1 (2008-08-16): =
 * Updated for PHP4 Support
