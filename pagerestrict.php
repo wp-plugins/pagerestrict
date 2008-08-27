@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Page Restrict
-Plugin URI: http://sivel.net/category/wordpress/plugins/
+Plugin URI: http://sivel.net/wordpress/
 Description: Restrict certain pages to logged in users
 Author: Matt Martz <mdmartz@sivel.net>
 Author URI: http://sivel.net/
