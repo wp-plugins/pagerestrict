@@ -2,8 +2,8 @@
 Contributors: sivel
 Tags: pages, page, restrict, restriction, logged in, cms
 Requires at least: 2.0
-Tested up to: 2.6
-Stable tag: 1.4.1
+Tested up to: 2.6.1
+Stable tag: 1.5
 
 Restrict certain pages to logged in users.
 
@@ -45,7 +45,11 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 
 == Change Log ==
 
-= 1.4.1 (2008-08-25) : =
+= 1.5 (2008-09-03): =
+* Added ability to change restriction method
+* Rewrote and simplified areas pertaining to the list of pages
+
+= 1.4.1 (2008-08-25): =
 * Added back no_cache add_action that was lost in the admin separation
 * Removed duplicate add_action for the admin page
 

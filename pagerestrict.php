@@ -5,17 +5,18 @@ Plugin URI: http://sivel.net/wordpress/
 Description: Restrict certain pages to logged in users
 Author: Matt Martz <mdmartz@sivel.net>
 Author URI: http://sivel.net/
-Version: 1.4.1
+Version: 1.5
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
         Page Restrict is released under the GNU Lesser General Public License (LGPL)
 	http://www.gnu.org/licenses/lgpl-3.0.txt
 */
 
+// ff we are in the admin load the admin functionality
 if ( is_admin () )
 	require_once( dirname ( __FILE__ ) . '/inc/admin.php' );
 
-// Get Specific Page Restrict Option
+// get specific option
 function pr_get_opt ( $option ) {
 	$pr_options = get_option ( 'pr_options' );
         return $pr_options[$option];
@@ -28,8 +29,7 @@ function pr_no_cache_headers () {
 	global $user_ID;
 	get_currentuserinfo ();
         if ( ! $user_ID ) {
-		header ( 'Cache-Control: no-cache, must-revalidate' );
-		header ( 'Expires: ' . gmdate ( 'r' , strtotime ( 'last week' ) ) ); 
+		nocache_headers ();
 	}
 }
 
@@ -38,9 +38,9 @@ function pr_page_restrict ( $pr_page_content ) {
 	global $user_ID;
 	get_currentuserinfo ();
 	if ( ! $user_ID ) :
-		if ( ( ( is_page ( explode ( ',' , pr_get_opt ( 'pages' ) ) ) ) && ( pr_get_opt ( 'method' ) != 'none' ) ) || ( ( is_page () ) && ( pr_get_opt ( 'method' ) == 'all' ) ) ):
+		if ( ( ( is_page ( pr_get_opt ( 'pages' ) ) ) && ( pr_get_opt ( 'method' ) != 'none' ) ) || ( ( is_page () ) && ( pr_get_opt ( 'method' ) == 'all' ) ) ):
 			$pr_page_content = '
-			<p>You are required to login to view this page.</p>
+			<p>' . pr_get_opt ( 'message' )  . '</p>
 			<form style="text-align: left;" action="' . get_bloginfo ( 'url' ) . '/wp-login.php" method="post">
 				<p>
 				<label for="log"><input type="text" name="log" id="log" value="' . wp_specialchars ( stripslashes ( $user_login ) , 1 ) . '" size="22" /> User</label><br />
@@ -52,13 +52,9 @@ function pr_page_restrict ( $pr_page_content ) {
 			</form>
 			<p><a href="' . get_bloginfo ( 'url' ) . '/wp-register.php">Register</a>&nbsp;|&nbsp;<a href="' . get_bloginfo ( 'url' ) . '/wp-login.php?action=lostpassword">Lost your password?</a></p>
 			';
-			return $pr_page_content;
-		else :
-			return $pr_page_content;
 		endif;
-	else :
-		return $pr_page_content;
 	endif;
+	return $pr_page_content;
 }
 
 // Add Actions
