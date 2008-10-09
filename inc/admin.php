@@ -126,29 +126,18 @@ function pr_admin_page () {
 			<table class="form-table">
 <?php
 		$avail_pages = get_pages ();
-		$i = count ( $avail_pages );
-		while ( $i > 0 ) :
-			$i--;
-			$pr_page_id = $avail_pages[$i]->ID;	
-			$pr_page_title = $avail_pages[$i]->post_title;
-			if ( $page_ids ) :
-				if ( in_array ( $pr_page_id , $page_ids ) ) :
-					$page_checked = ' checked="checked" ';
-				else :
-					$page_checked = '';
-				endif;
-			endif;
+		foreach ( $avail_pages as $page ) :
 ?>
 				<tr valign="top">
 					<th scope="row">
-						<?php echo $pr_page_title; ?>
+						<?php echo $page->post_title; ?>
 					</th>
 					<td>
-						<input type="checkbox" name="page_id[]" value="<?php echo $pr_page_id; ?>"<?php echo $page_checked; ?> />
+						<input type="checkbox" name="page_id[]" value="<?php echo $page->ID; ?>"<?php checked ( true , in_array ( $page->ID , $page_ids ) ); ?> />
 					</td>
 				</tr>
 <?php
-		endwhile;
+		endforeach;
 ?>
 			</table>
 <?php
@@ -185,7 +174,7 @@ function page_restriction_status_meta_box ( $post ) {
  * Add meta box to create/edit page pages
  */
 function pr_meta_box () {
-	add_meta_box ( 'pagerestrictionstatusdiv' , 'Restriction' , 'page_restriction_status_meta_box' , 'page' , 'advanced' , 'high' );
+	add_meta_box ( 'pagerestrictionstatusdiv' , 'Restriction' , 'page_restriction_status_meta_box' , 'page' , 'normal' , 'high' );
 }
 
 /**
