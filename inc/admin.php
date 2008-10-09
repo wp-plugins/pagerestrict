@@ -10,15 +10,14 @@ $pr_version = '1.5.8.0';
 // Check the version in the options table and if less than this version perform update
 function pr_ver_check () {
 	global $pr_version;
-	if ( ( pr_get_opt ( 'version' ) < $pr_version ) || ( !pr_get_opt ( 'version' ) ) ) :
-		$pr_options = array ();
+	if ( ( pr_get_opt ( 'version' ) < $pr_version ) || ( ! pr_get_opt ( 'version' ) ) ) :
 		$pr_options['version'] = $pr_version;
 		$pr_options['pages'] = explode ( ',' , pr_get_opt ( 'pages' ) );
 		$pr_options['method'] = pr_get_opt ( 'method' );
 		$pr_options['message'] = 'You are required to login to view this page.';
 		$pr_options['loginform'] = true;
 		pr_delete ();
-		add_option ( 'pr_options' , $pr_options , 'Page Restrict Options' );
+		add_option ( 'pr_options' , $pr_options );
 	endif;
 }
 
@@ -26,7 +25,6 @@ function pr_ver_check () {
 function pr_init () {
 	global $pr_version;
 	if ( ! pr_get_opt( 'version' ) ) :
-		$pr_options = array ();
 		$pr_options['version'] = $pr_version;
 		$pr_options['pages'] = array ();
 		$pr_options['method'] = 'selected';
@@ -45,9 +43,7 @@ function pr_delete () {
 
 // Add the options page
 function pr_options_page () {
-	if ( function_exists ( 'add_options_page' ) ) :
-		add_options_page ( 'Page Restrict' , 'Page Restrict' , 'manage_options' , 'pagerestrict' , 'pr_admin_page' );
-	endif;
+	add_options_page ( 'Page Restrict' , 'Page Restrict' , 'publish_pages' , 'pagerestrict' , 'pr_admin_page' );
 }
 
 // The options page
