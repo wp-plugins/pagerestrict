@@ -41,6 +41,17 @@ function pr_delete () {
 	delete_option ( 'pr_options' );
 }
 
+// Check if the running version of WordPress meets a supplied version requirement
+if ( ! function_exists ( 'wp_required_ver' ) ) :
+        function wp_required_ver ( $ver ) {
+                global $wp_version;
+                if ( $wp_version >= $ver )
+                        return true;
+                else
+                        return false;
+        }
+endif;
+
 // Add the options page
 function pr_options_page () {
 	add_options_page ( 'Page Restrict' , 'Page Restrict' , 'publish_pages' , 'pagerestrict' , 'pr_admin_page' );
@@ -76,6 +87,12 @@ function pr_admin_page () {
 	<div class="wrap">
 		<h2>Page Restrict Options</h2>
 		<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+                        <input type="hidden" name="action" value="update" />
+                        <?php if ( wp_required_ver ( 2.7 ) ) : ?>
+                        <p class="submit">
+                                <input type="submit" name="Submit" value="<?php _e('Save Changes') ?>" />
+                        </p>
+                        <?php endif; ?>
 			<h3>General Options</h3>
 			<p>These options pertain to the gerneral operation of the plugin</p>
 			<table class="form-table">
@@ -141,7 +158,6 @@ function pr_admin_page () {
 ?>
 			<br />
 			<p class="submit">
-				<input type="hidden" name="action" value="update" />
 				<input type="submit" name="submit" class="button" value="Save Changes" />
 			</p>
 		</form>

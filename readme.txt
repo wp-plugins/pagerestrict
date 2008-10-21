@@ -45,6 +45,11 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 
 == Change Log ==
 
+= 1.6 (2008-xx-xx): =
+* Replaced while loop with foreach for display list of pages 
+* Added meta box to write/edit pages page
+* Added capability to display or not display the login form
+
 = 1.5 (2008-09-03): =
 * Added ability to change restriction method
 * Rewrote and simplified areas pertaining to the list of pages
