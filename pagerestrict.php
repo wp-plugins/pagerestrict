@@ -8,8 +8,8 @@ Author URI: http://sivel.net/
 Version: 1.5.8.0
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
-        Page Restrict is released under the GNU General Public License (GPL)
-	http://www.gnu.org/licenses/gpl-2.0.txt
+        Page Restrict is released under the GNU Lesser General Public License (LGPL)
+	http://www.gnu.org/licenses/lgpl-3.0.txt
 */
 
 // ff we are in the admin load the admin functionality
@@ -64,6 +64,6 @@ function pr_page_restrict ( $pr_page_content ) {
 add_action( 'send_headers' , 'pr_no_cache_headers' );
 
 // Add Filters
-add_filter ( 'the_content' , 'pr_page_restrict' );
-add_filter ( 'the_excerpt' , 'pr_page_restrict' );
+add_filter ( 'the_content' , 'pr_page_restrict' , 50 );
+add_filter ( 'the_excerpt' , 'pr_page_restrict' , 50 );
 ?>
