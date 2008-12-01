@@ -5,7 +5,7 @@ Plugin URI: http://sivel.net/wordpress/
 Description: Restrict certain pages to logged in users
 Author: Matt Martz <mdmartz@sivel.net>
 Author URI: http://sivel.net/
-Version: 1.5.8.0
+Version: 1.5.8.1
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
         Page Restrict is released under the GNU Lesser General Public License (LGPL)
@@ -35,27 +35,37 @@ function pr_no_cache_headers () {
 
 // Perform the restriction and if restricted replace the page content with a login form
 function pr_page_restrict ( $pr_page_content ) {
-	global $user_ID;
+	global $user_ID, $post;
 	get_currentuserinfo ();
 	if ( ! $user_ID  && is_array ( pr_get_opt ( 'pages' ) ) ) :
 		if ( ( ( is_page ( pr_get_opt ( 'pages' ) ) ) && ( pr_get_opt ( 'method' ) != 'none' ) ) || ( ( is_page () ) && ( pr_get_opt ( 'method' ) == 'all' ) ) ):
 			$pr_page_content = '
-			<p>' . pr_get_opt ( 'message' )  . '</p>';
+				<p>' . pr_get_opt ( 'message' )  . '</p>';
 			if ( pr_get_opt ( 'loginform' ) == true ) :
 				$pr_page_content .= '
 				<form style="text-align: left;" action="' . get_bloginfo ( 'url' ) . '/wp-login.php" method="post">
 					<p>
-					<label for="log"><input type="text" name="log" id="log" value="' . wp_specialchars ( stripslashes ( $user_login ) , 1 ) . '" size="22" /> User</label><br />
-					<label for="pwd"><input type="password" name="pwd" id="pwd" size="22" /> Password</label><br />
-					<input type="submit" name="submit" value="Log In" class="button" />
-					<label for="rememberme"><input name="rememberme" id="rememberme" type="checkbox" checked="checked" value="forever" /> Remember me</label><br />
+						<label for="log"><input type="text" name="log" id="log" value="' . wp_specialchars ( stripslashes ( $user_login ) , 1 ) . '" size="22" /> Username</label><br />
+						<label for="pwd"><input type="password" name="pwd" id="pwd" size="22" /> Password</label><br />
+						<input type="submit" name="submit" value="Log In" class="button" />
+						<label for="rememberme"><input name="rememberme" id="rememberme" type="checkbox" checked="checked" value="forever" /> Remember me</label><br />
 					</p>
 					<input type="hidden" name="redirect_to" value="' . $_SERVER['REQUEST_URI'] . '" />
 				</form>
-				<p><a href="' . get_bloginfo ( 'url' ) . '/wp-register.php">Register</a>&nbsp;|&nbsp;<a href="' . get_bloginfo ( 'url' ) . '/wp-login.php?action=lostpassword">Lost your password?</a></p>
+				<p>
+				';
+				
+				if ( get_option('users_can_register') )
+					$pr_page_content .= '	<a href="' . get_bloginfo ( 'url' ) . '/wp-register.php">Register</a> | ';
+
+				$pr_page_content .= '<a href="' . get_bloginfo ( 'url' ) . '/wp-login.php?action=lostpassword">Lost your password?</a>
+				</p>
 				';
 			endif;
-		endif;
+		elseif ( in_array ( $post->ID , pr_get_opt ( 'pages' ) ) && ( is_archive () || is_search () ) ) :
+                        $pr_page_content = '<p>' . pr_get_opt ( 'message' )  . '</p>';
+                        $pr_page_content = str_replace('login', '<a href="' . get_bloginfo ( 'url' ) . '/wp-login.php?redirect_to=' . urlencode($_SERVER['REQUEST_URI'])  . '">login</a>', $pr_page_content);
+                endif;
 	endif;
 	return $pr_page_content;
 }
