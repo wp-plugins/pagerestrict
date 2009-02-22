@@ -5,7 +5,7 @@ Plugin URI: http://sivel.net/wordpress/
 Description: Restrict certain pages to logged in users
 Author: Matt Martz <mdmartz@sivel.net>
 Author URI: http://sivel.net/
-Version: 1.5.8.1
+Version: 1.6b2
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
         Page Restrict is released under the GNU Lesser General Public License (LGPL)
@@ -42,6 +42,8 @@ function pr_page_restrict ( $pr_page_content ) {
 			$pr_page_content = '
 				<p>' . pr_get_opt ( 'message' )  . '</p>';
 			if ( pr_get_opt ( 'loginform' ) == true ) :
+				if ( ! isset ( $user_login ) )
+					$user_login = '';
 				$pr_page_content .= '
 				<form style="text-align: left;" action="' . get_bloginfo ( 'url' ) . '/wp-login.php" method="post">
 					<p>
@@ -61,6 +63,7 @@ function pr_page_restrict ( $pr_page_content ) {
 				$pr_page_content .= '<a href="' . get_bloginfo ( 'url' ) . '/wp-login.php?action=lostpassword">Lost your password?</a>
 				</p>
 				';
+				$post->comment_status = 'closed';
 			endif;
 		elseif ( in_array ( $post->ID , pr_get_opt ( 'pages' ) ) && ( is_archive () || is_search () ) ) :
                         $pr_page_content = '<p>' . pr_get_opt ( 'message' )  . '</p>';
@@ -70,10 +73,22 @@ function pr_page_restrict ( $pr_page_content ) {
 	return $pr_page_content;
 }
 
+function pr_comment_restrict ( $pr_comment_array ) {
+        global $user_ID, $post;
+        get_currentuserinfo ();
+        if ( ! $user_ID  && is_array ( pr_get_opt ( 'pages' ) ) ) :
+                if ( ( ( is_page ( pr_get_opt ( 'pages' ) ) ) && ( pr_get_opt ( 'method' ) != 'none' ) ) || ( ( is_page () ) && ( pr_get_opt ( 'method' ) == 'all' ) ) ):
+			$pr_comment_array = array();
+		endif;
+	endif;
+	return $pr_comment_array;
+}
+
 // Add Actions
 add_action( 'send_headers' , 'pr_no_cache_headers' );
 
 // Add Filters
 add_filter ( 'the_content' , 'pr_page_restrict' , 50 );
 add_filter ( 'the_excerpt' , 'pr_page_restrict' , 50 );
+add_filter ( 'comments_array' , 'pr_comment_restrict' , 50 );
 ?>

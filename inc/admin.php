@@ -5,14 +5,23 @@ Plugin URI: http://sivel.net/wordpress/
 */
 
 //
-$pr_version = '1.5.8.0';
+$pr_version = '1.6b2';
+
+// Full path and plugin basename of the main plugin file
+$pr_plugin_file = dirname ( dirname ( __FILE__ ) ) . '/pagerestrict.php';
+$pr_plugin_basename = plugin_basename ( $pr_plugin_file );
+
+load_plugin_textdomain( 'pagerestrict', FALSE, '/pagerestrict/lang' );
 
 // Check the version in the options table and if less than this version perform update
 function pr_ver_check () {
 	global $pr_version;
 	if ( ( pr_get_opt ( 'version' ) < $pr_version ) || ( ! pr_get_opt ( 'version' ) ) ) :
 		$pr_options['version'] = $pr_version;
-		$pr_options['pages'] = explode ( ',' , pr_get_opt ( 'pages' ) );
+		if ( ! is_array ( pr_get_opt ( 'pages' ) ) )
+			$pr_options['pages'] = explode ( ',' , pr_get_opt ( 'pages' ) );
+		else
+			$pr_options['pages'] = pr_get_opt ( 'pages' );
 		$pr_options['method'] = pr_get_opt ( 'method' );
 		$pr_options['message'] = 'You are required to login to view this page.';
 		$pr_options['loginform'] = true;
@@ -43,18 +52,32 @@ function pr_delete () {
 
 // Add the options page
 function pr_options_page () {
-	add_options_page ( 'Page Restrict' , 'Page Restrict' , 'publish_pages' , 'pagerestrict' , 'pr_admin_page' );
+	global $pr_plugin_basename;
+	if ( current_user_can ( 'edit_others_pages' ) && function_exists ( 'add_options_page' ) ) :
+		add_options_page ( 'Page Restrict' , 'Page Restrict' , 'publish_pages' , 'pagerestrict' , 'pr_admin_page' );
+		add_filter("plugin_action_links_$pr_plugin_basename", 'pr_filter_plugin_actions' );
+	endif;
+
+}
+
+// Add the setting link to the plugin actions
+function pr_filter_plugin_actions ( $links ) {
+        $settings_link = '<a href="options-general.php?page=pagerestrict">' . __( 'Settings' ) . '</a>';
+        array_unshift( $links, $settings_link );
+        return $links;
 }
 
 // The options page
 function pr_admin_page () {
 	pr_ver_check ();
-	if ( $_POST['action'] == 'update' ) :
+	if ( $_POST && $_POST['action'] == 'update' ) :
 		if ( $_POST['update'] == 'pages' ) :
 			$page_ids = $_POST['page_id'];
 		else :
 			$page_ids = pr_get_opt ( 'pages' );	
 		endif;
+		if ( ! is_array ( $page_ids ) ) 
+			$page_ids = array ();
 		$pr_options['pages'] = $page_ids;
 		$pr_method = $_POST['method'];
 		$pr_options['method'] = $pr_method;
@@ -69,6 +92,8 @@ function pr_admin_page () {
 		echo '<div id="message" class="updated fade"><p><strong>Settings saved.</strong></p></div>';
 	else :
 		$page_ids = pr_get_opt ( 'pages' );
+                if ( ! is_array ( $page_ids ) )
+                        $page_ids = array ();
 		$pr_method = pr_get_opt ( 'method' );
 		$pr_message = pr_get_opt ( 'message' );
 	endif;
@@ -154,6 +179,9 @@ function pr_admin_page () {
  */
 function page_restriction_status_meta_box ( $post ) {
 	$post_ID = $post->ID;
+	$page_ids = pr_get_opt ( 'pages' );
+	if ( ! is_array ( $page_ids ) )
+		$page_ids = array ();
 ?>
 	<p>
 		<input name="pr" type="hidden" value="update" />

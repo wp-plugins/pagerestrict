@@ -1,7 +1,7 @@
 === Page Restrict ===
 Contributors: sivel
 Tags: pages, page, restrict, restriction, logged in, cms
-Requires at least: 2.5
+Requires at least: 2.6
 Tested up to: 2.7
 Stable tag: 1.5
 
@@ -45,10 +45,13 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 
 == Change Log ==
 
-= 1.6 (2008-xx-xx): =
+= 1.6 (2009-02-xx): =
 * Replaced while loop with foreach for display list of pages 
 * Added meta box to write/edit pages page
 * Added capability to display or not display the login form
+* Updated admin styling
+* Restrict commeting or viewing comments on restricted pages
+* Restrict search results also so restricted pages are not shown
 
 = 1.5 (2008-09-03): =
 * Added ability to change restriction method
