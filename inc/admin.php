@@ -205,7 +205,7 @@ function pr_meta_box () {
  * Get custom POST vars on edit/create page pages and update options accordingly
  */
 function pr_meta_save () {
-	if ( $_POST['pr'] == 'update' ) :
+	if ( isset ( $_POST['pr'] ) && $_POST['pr'] == 'update' ) :
 		$post_ID = $_POST['post_ID'];
 		$restricted_pages = pr_get_opt ( 'pages' );
 		if ( ! is_array ( $restricted_pages ) )
