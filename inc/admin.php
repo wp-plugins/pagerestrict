@@ -167,7 +167,7 @@ function pr_admin_page () {
 ?>
 			<br />
 			<p class="submit">
-				<input type="submit" name="submit" class="button" value="Save Changes" />
+				<input type="submit" name="submit" class="button-primary" value="Save Changes" />
 			</p>
 		</form>
 	</div>
