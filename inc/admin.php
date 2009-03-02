@@ -1,7 +1,7 @@
 <?php
 /*
 Part of WordPress Plugin: Page Restrict
-Plugin URI: http://sivel.net/category/wordpress/plugins/
+http://sivel.net/wordpress/
 */
 
 // Set Page Restrict Version Number
