@@ -1,7 +1,7 @@
 <?php
 /*
 Part of WordPress Plugin: Page Restrict
-Plugin URI: http://sivel.net/wordpress/
+http://sivel.net/wordpress/
 */
 
 $pr_version = '1.5';
