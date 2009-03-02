@@ -3,7 +3,7 @@
 Plugin Name: Page Restrict
 Plugin URI: http://sivel.net/category/wordpress/plugins/
 Description: Restrict certain pages to logged in users
-Author: Matt Martz <mdmartz@sivel.net>
+Author: Matt Martz
 Author URI: http://sivel.net/
 Version: 0.3.1
 
