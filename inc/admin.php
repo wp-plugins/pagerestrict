@@ -1,7 +1,7 @@
 <?php
 /*
 Part of WordPress Plugin: Page Restrict
-http://sivel.net/wordpress/
+Plugin URI: http://sivel.net/wordpress/
 */
 
 //
@@ -210,7 +210,7 @@ function pr_meta_save () {
 		$restricted_pages = pr_get_opt ( 'pages' );
 		if ( ! is_array ( $restricted_pages ) )
 			$restricted_pages = array ();
-		if ( $_POST['restriction_status'] == 'on' ) :
+		if ( ! empty ( $_POST['restriction_status'] ) && $_POST['restriction_status'] == 'on' ) :
 			$restricted_pages[] = $post_ID ;
 			$pr_options['pages'] = $restricted_pages;
 		else :
