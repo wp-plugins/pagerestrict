@@ -5,7 +5,7 @@ Plugin URI: http://sivel.net/wordpress/
 Description: Restrict certain pages to logged in users
 Author: Matt Martz
 Author URI: http://sivel.net/
-Version: 1.6b2
+Version: 1.6
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
         Page Restrict is released under the GNU Lesser General Public License (LGPL)

@@ -5,13 +5,11 @@ Plugin URI: http://sivel.net/wordpress/
 */
 
 //
-$pr_version = '1.6b2';
+$pr_version = '1.6';
 
 // Full path and plugin basename of the main plugin file
 $pr_plugin_file = dirname ( dirname ( __FILE__ ) ) . '/pagerestrict.php';
 $pr_plugin_basename = plugin_basename ( $pr_plugin_file );
-
-load_plugin_textdomain( 'pagerestrict', FALSE, '/pagerestrict/lang' );
 
 // Check the version in the options table and if less than this version perform update
 function pr_ver_check () {

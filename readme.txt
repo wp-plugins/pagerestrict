@@ -3,7 +3,7 @@ Contributors: sivel
 Tags: pages, page, restrict, restriction, logged in, cms
 Requires at least: 2.6
 Tested up to: 2.7
-Stable tag: 1.5
+Stable tag: 1.6
 
 Restrict certain pages to logged in users.
 
@@ -45,7 +45,7 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 
 == Change Log ==
 
-= 1.6 (2009-02-xx): =
+= 1.6 (2009-03-12): =
 * Replaced while loop with foreach for display list of pages 
 * Added meta box to write/edit pages page
 * Added capability to display or not display the login form
