@@ -43,7 +43,7 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 1. If you chose selected, select the pages you wish to restrict.
 1. Enjoy.
 
-== Change Log ==
+== Changelog ==
 
 = 0.3 (2008-08-13): =
 * Initial Public Release
