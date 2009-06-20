@@ -43,7 +43,7 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 1. If you chose selected, select the pages you wish to restrict.
 1. Enjoy.
 
-== Change Log ==
+== Changelog ==
 
 = 1.4.1 (2008-08-25) : =
 * Added back no_cache add_action that was lost in the admin separation
