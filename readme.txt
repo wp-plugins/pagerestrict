@@ -1,5 +1,5 @@
 === Page Restrict ===
-Contributors: sivel
+Contributors: theandystratton, sivel
 Tags: pages, page, restrict, restriction, logged in, cms
 Requires at least: 2.6
 Tested up to: 2.9
