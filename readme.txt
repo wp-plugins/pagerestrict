@@ -45,6 +45,9 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 
 == Changelog ==
 
+= 1.7 (2010-01-18) =
+* Fixed a bug that added slashes to quotes in the custom restriction message.
+
 = 1.6 (2009-03-12): =
 * Replaced while loop with foreach for display list of pages 
 * Added meta box to write/edit pages page
