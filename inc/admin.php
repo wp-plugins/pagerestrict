@@ -5,7 +5,7 @@ Plugin URI: http://sivel.net/wordpress/
 */
 
 //
-$pr_version = '1.6';
+$pr_version = '1.7';
 
 // Full path and plugin basename of the main plugin file
 $pr_plugin_file = dirname ( dirname ( __FILE__ ) ) . '/pagerestrict.php';
@@ -80,7 +80,7 @@ function pr_admin_page () {
 		$pr_method = $_POST['method'];
 		$pr_options['method'] = $pr_method;
 		$pr_options['version'] = pr_get_opt ( 'version' );
-		$pr_message = $_POST['message'];
+		$pr_message = stripslashes($_POST['message']);
 		$pr_options['message'] = $pr_message;
 		if ( $_POST['loginform'] == 'true' )
 			$pr_options['loginform'] = true;

@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Page Restrict
-Plugin URI: http://sivel.net/wordpress/
+Plugin URI: http://theandystratton.com/pagerestrict
 Description: Restrict certain pages to logged in users
-Author: Matt Martz
-Author URI: http://sivel.net/
-Version: 1.6
+Author: Matt Martz & Andy Stratton
+Author URI: http://theandystratton.com
+Version: 1.7
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
         Page Restrict is released under the GNU Lesser General Public License (LGPL)
