@@ -5,7 +5,7 @@ Plugin URI: http://theandystratton.com/pagerestrict
 Description: Restrict certain pages to logged in users
 Author: Matt Martz & Andy Stratton
 Author URI: http://theandystratton.com
-Version: 1.7
+Version: 1.8
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
         Page Restrict is released under the GNU Lesser General Public License (LGPL)
@@ -45,7 +45,7 @@ function pr_page_restrict ( $pr_page_content ) {
 				if ( ! isset ( $user_login ) )
 					$user_login = '';
 				$pr_page_content .= '
-				<form style="text-align: left;" action="' . get_bloginfo ( 'url' ) . '/wp-login.php" method="post">
+				<form style="text-align: left;" action="' . get_bloginfo ( 'wpurl' ) . '/wp-login.php" method="post">
 					<p>
 						<label for="log"><input type="text" name="log" id="log" value="' . wp_specialchars ( stripslashes ( $user_login ) , 1 ) . '" size="22" /> Username</label><br />
 						<label for="pwd"><input type="password" name="pwd" id="pwd" size="22" /> Password</label><br />
@@ -58,16 +58,16 @@ function pr_page_restrict ( $pr_page_content ) {
 				';
 				
 				if ( get_option('users_can_register') )
-					$pr_page_content .= '	<a href="' . get_bloginfo ( 'url' ) . '/wp-register.php">Register</a> | ';
+					$pr_page_content .= '	<a href="' . get_bloginfo ( 'wpurl' ) . '/wp-register.php">Register</a> | ';
 
-				$pr_page_content .= '<a href="' . get_bloginfo ( 'url' ) . '/wp-login.php?action=lostpassword">Lost your password?</a>
+				$pr_page_content .= '<a href="' . get_bloginfo ( 'wpurl' ) . '/wp-login.php?action=lostpassword">Lost your password?</a>
 				</p>
 				';
 				$post->comment_status = 'closed';
 			endif;
 		elseif ( in_array ( $post->ID , pr_get_opt ( 'pages' ) ) && ( is_archive () || is_search () ) ) :
                         $pr_page_content = '<p>' . pr_get_opt ( 'message' )  . '</p>';
-                        $pr_page_content = str_replace('login', '<a href="' . get_bloginfo ( 'url' ) . '/wp-login.php?redirect_to=' . urlencode($_SERVER['REQUEST_URI'])  . '">login</a>', $pr_page_content);
+                        $pr_page_content = str_replace('login', '<a href="' . get_bloginfo ( 'wpurl' ) . '/wp-login.php?redirect_to=' . urlencode($_SERVER['REQUEST_URI'])  . '">login</a>', $pr_page_content);
                 endif;
 	endif;
 	return $pr_page_content;
