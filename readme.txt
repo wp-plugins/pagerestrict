@@ -45,7 +45,7 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 
 == Changelog ==
 
-= 1.85 (2010-02-15)
+= 1.85 (2010-02-15) =
 * Fixed bug where choosing the "selected" restriction method would result in all pages being restricted if no pages are checked in the plugin settings.
 
 = 1.8 (2010-02-12) =
