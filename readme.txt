@@ -3,7 +3,7 @@ Contributors: theandystratton, sivel
 Tags: pages, page, restrict, restriction, logged in, cms
 Requires at least: 2.6
 Tested up to: 2.9
-Stable tag: 1.8
+Stable tag: 1.85
 
 Restrict certain pages to logged in users.
 
@@ -45,7 +45,10 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 
 == Changelog ==
 
-= 1.7 (2010-02-12) =
+= 1.85 (2010-02-15)
+* Fixed bug where choosing the "selected" restriction method would result in all pages being restricted if no pages are checked in the plugin settings.
+
+= 1.8 (2010-02-12) =
 * Changed URL's to wp-login.php to use get_bloginfo('wpurl') instead of get_bloginfo('url') to ensure proper redirection when users install files outside of the site's document root.
 
 = 1.7 (2010-01-18) =
