@@ -5,7 +5,7 @@ Plugin URI: http://sivel.net/wordpress/
 */
 
 //
-$pr_version = '1.7';
+$pr_version = '2.0';
 
 // Full path and plugin basename of the main plugin file
 $pr_plugin_file = dirname ( dirname ( __FILE__ ) ) . '/pagerestrict.php';
