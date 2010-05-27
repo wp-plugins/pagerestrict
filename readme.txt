@@ -45,6 +45,9 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 
 == Changelog ==
 
+= 2.0 (2010-05-27) =
+* Added support for restricting posts.
+
 = 1.85 (2010-02-15) =
 * Fixed bug where choosing the "selected" restriction method would result in all pages being restricted if no pages are checked in the plugin settings.
 

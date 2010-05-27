@@ -71,12 +71,15 @@ function pr_admin_page () {
 	if ( $_POST && $_POST['action'] == 'update' ) :
 		if ( $_POST['update'] == 'pages' ) :
 			$page_ids = $_POST['page_id'];
+			$post_ids = $_POST['post_id'];
 		else :
 			$page_ids = pr_get_opt ( 'pages' );	
+			$post_ids = pr_get_opt ( 'posts' );	
 		endif;
 		if ( ! is_array ( $page_ids ) ) 
-			$page_ids = array ();
+		$page_ids = array ();
 		$pr_options['pages'] = $page_ids;
+		$pr_options['posts'] = $post_ids;
 		$pr_method = $_POST['method'];
 		$pr_options['method'] = $pr_method;
 		$pr_options['version'] = pr_get_opt ( 'version' );
@@ -90,6 +93,7 @@ function pr_admin_page () {
 		echo '<div id="message" class="updated fade"><p><strong>Settings saved.</strong></p></div>';
 	else :
 		$page_ids = pr_get_opt ( 'pages' );
+		$post_ids = pr_get_opt ( 'posts' );
                 if ( ! is_array ( $page_ids ) )
                         $page_ids = array ();
 		$pr_method = pr_get_opt ( 'method' );
@@ -143,23 +147,33 @@ function pr_admin_page () {
 			<h3>Page List</h3>
 			<p>Select the pages that you wish to restrict to logged in users.</p>
 			<input type="hidden" name="update" value="pages" />
-			<table class="form-table">
+			<select name="page_id[]" id="the_pages" multiple="multiple" size="15" style="height: 150px;width:400px;">
 <?php
 		$avail_pages = get_pages ();
 		foreach ( $avail_pages as $page ) :
 ?>
-				<tr valign="top">
-					<th scope="row">
-						<?php echo $page->post_title; ?>
-					</th>
-					<td>
-						<input type="checkbox" name="page_id[]" value="<?php echo $page->ID; ?>"<?php checked ( true , in_array ( $page->ID , $page_ids ) ); ?> />
-					</td>
-				</tr>
+				<option value="<?php echo esc_attr($page->ID); ?>"<?php selected( true , in_array ( $page->ID , $page_ids ) ); ?>><?php echo wp_specialchars($page->post_title); ?></option>
 <?php
 		endforeach;
 ?>
-			</table>
+			</select>
+			
+			
+			<h3>Post List</h3>
+			<p>Select the posts that you wish to restrict to logged in users.</p>
+			<input type="hidden" name="update" value="pages" />
+			<select name="post_id[]" id="the_posts" multiple="multiple" size="15" style="height: 150px;width:400px;">
+<?php
+		$avail_posts = get_posts();
+		foreach ( $avail_posts as $post ) :
+?>
+				<option value="<?php echo esc_attr($post->ID); ?>"<?php selected( true , in_array ( $post->ID , $post_ids ) ); ?>><?php echo wp_specialchars($post->post_title); ?></option>
+<?php
+		endforeach;
+?>
+			</select>
+			
+			
 <?php
 	endif;
 ?>
