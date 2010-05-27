@@ -3,19 +3,19 @@ Contributors: theandystratton, sivel
 Tags: pages, page, restrict, restriction, logged in, cms
 Requires at least: 2.6
 Tested up to: 2.9
-Stable tag: 1.85
+Stable tag: 2.0
 
-Restrict certain pages to logged in users.
+Restrict certain pages or posts to logged in users.
 
 == Description ==
 
-Restrict certain pages to logged in users
+Restrict certain pages or posts to logged in users
 
-This plugin will allow you to restrict all, none, or certain pages to logged in users only.  
+This plugin will allow you to restrict all, none, or certain pages/posts to logged in users only.  
 
 In some cases where you are using WordPress as a CMS and only want logged in users to have access to the content or where you want users to register for purposes unknown so that they can see the content, then this plugin is what you are looking for.
 
-Simple admin interface to select all, none, or some of your pages.  This does not work for posts, only pages.
+Simple admin interface to select all, none, or some of your pages/posts.  This now works for posts!
 
 == Installation ==
 
