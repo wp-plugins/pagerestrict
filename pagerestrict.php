@@ -5,7 +5,7 @@ Plugin URI: http://theandystratton.com/pagerestrict
 Description: Restrict certain pages to logged in users
 Author: Matt Martz & Andy Stratton
 Author URI: http://theandystratton.com
-Version: 2.0
+Version: 2.01
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
         Page Restrict is released under the GNU Lesser General Public License (LGPL)
@@ -19,7 +19,13 @@ if ( is_admin () )
 // get specific option
 function pr_get_opt ( $option ) {
 	$pr_options = get_option ( 'pr_options' );
-        return $pr_options[$option];
+	// clean up PHP warning for in_array() later when they have not been saved
+	if ( $option == 'posts' || $option == 'pages' ) {
+		if ( !is_array($pr_options[$option]) ) {
+			$pr_options[$option] = array();
+		}
+	}
+    return $pr_options[$option];
 }
 
 // Add headers to keep browser from caching the pages when user not logged in

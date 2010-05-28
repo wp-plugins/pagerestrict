@@ -3,7 +3,7 @@ Contributors: theandystratton, sivel
 Tags: pages, page, restrict, restriction, logged in, cms
 Requires at least: 2.6
 Tested up to: 2.9
-Stable tag: 2.0
+Stable tag: 2.01
 
 Restrict certain pages or posts to logged in users.
 
@@ -44,6 +44,9 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 1. Enjoy.
 
 == Changelog ==
+
+= 2.01 (2010-05-27) =
+* Quick update to fix an in_array() warning issued when settings are checked but have not been saved.
 
 = 2.0 (2010-05-27) =
 * Added support for restricting posts.
