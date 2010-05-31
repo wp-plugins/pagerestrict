@@ -3,7 +3,7 @@ Contributors: theandystratton, sivel
 Tags: pages, page, restrict, restriction, logged in, cms
 Requires at least: 2.6
 Tested up to: 2.9
-Stable tag: 2.01
+Stable tag: 2.02
 
 Restrict certain pages or posts to logged in users.
 
