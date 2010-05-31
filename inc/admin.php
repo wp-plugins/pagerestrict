@@ -191,18 +191,23 @@ function pr_admin_page () {
  */
 function page_restriction_status_meta_box ( $post ) {
 	$post_ID = $post->ID;
-	$page_ids = pr_get_opt ( 'pages' );
+	if ( $post->post_type == 'page' ) {
+		$the_IDs = pr_get_opt ('pages');
+	}
+	else {
+		$the_IDs = pr_get_opt ('posts');
+	}
 	if ( ! is_array ( $page_ids ) )
 		$page_ids = array ();
 ?>
 	<p>
 		<input name="pr" type="hidden" value="update" />
 		<label for="restriction_status" class="selectit">
-			<input type="checkbox" name="restriction_status" id="restriction_status"<?php if ( in_array ( $post_ID , pr_get_opt ( 'pages' ) ) ) echo ' checked="checked"'; ?>/>
-			Restrict Page
+			<input type="checkbox" name="restriction_status" id="restriction_status"<?php if ( in_array ( $post_ID , $the_IDs ) ) echo ' checked="checked"'; ?>/>
+			Restrict <?php echo $post->post_type == 'post' ? 'Post' : 'Page'; ?>
 		</label>
 	</p>
-	<p>These settings apply to this page only. For a full list of restriction statuses see the <a href="options-general.php?page=pagerestrict">global options page</a>.</p>
+	<p>These settings apply to this <?php echo $post->post_type == 'post' ? 'post' : 'page'; ?> only. For a full list of restriction statuses see the <a href="options-general.php?page=pagerestrict">global options page</a>.</p>
 <?php
 }
 
@@ -211,6 +216,7 @@ function page_restriction_status_meta_box ( $post ) {
  */
 function pr_meta_box () {
 	add_meta_box ( 'pagerestrictionstatusdiv' , 'Restriction' , 'page_restriction_status_meta_box' , 'page' , 'normal' , 'high' );
+	add_meta_box ( 'pagerestrictionstatusdiv' , 'Restriction' , 'page_restriction_status_meta_box' , 'post' , 'normal' , 'high' );
 }
 
 /**
@@ -219,14 +225,23 @@ function pr_meta_box () {
 function pr_meta_save () {
 	if ( isset ( $_POST['pr'] ) && $_POST['pr'] == 'update' ) :
 		$post_ID = $_POST['post_ID'];
-		$restricted_pages = pr_get_opt ( 'pages' );
-		if ( ! is_array ( $restricted_pages ) )
-			$restricted_pages = array ();
+		$post = get_post($post_ID);
+		if ( $post->post_type == 'page' ) {
+			$restrict_type = 'pages';
+		}
+		else {
+			$restrict_type = 'posts';
+		}
+		$pr_options['pages'] = pr_get_opt('pages');
+		$pr_options['posts'] = pr_get_opt('posts');
+		$restricted = $pr_options[ $restrict_type ];
+		if ( ! is_array ( $restricted ) )
+			$restricted = array ();
 		if ( ! empty ( $_POST['restriction_status'] ) && $_POST['restriction_status'] == 'on' ) :
-			$restricted_pages[] = $post_ID ;
-			$pr_options['pages'] = $restricted_pages;
+			$restricted[] = $post_ID ;
+			$pr_options[ $restrict_type ] = $restricted;
 		else :
-			$pr_options['pages'] = array_filter ( $restricted_pages , 'pr_array_delete' );
+			$pr_options[ $restrict_type ] = array_filter ( $restricted , 'pr_array_delete' );
 		endif;
 		$pr_options['loginform'] = pr_get_opt ( 'loginform' );
 		$pr_options['method'] = pr_get_opt ( 'method' );
