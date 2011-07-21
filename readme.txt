@@ -2,8 +2,8 @@
 Contributors: theandystratton, sivel
 Tags: pages, page, restrict, restriction, logged in, cms
 Requires at least: 2.6
-Tested up to: 2.9
-Stable tag: 2.02
+Tested up to: 3.2.1
+Stable tag: 2.03
 
 Restrict certain pages or posts to logged in users.
 
@@ -44,6 +44,9 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 1. Enjoy.
 
 == Changelog ==
+
+= 2.03 =
+* Update to fix bug where only 5 blog posts display in the settings screen.
 
 = 2.01 (2010-05-27) =
 * Quick update to fix an in_array() warning issued when settings are checked but have not been saved.

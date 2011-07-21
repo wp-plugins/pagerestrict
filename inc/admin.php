@@ -164,7 +164,7 @@ function pr_admin_page () {
 			<input type="hidden" name="update" value="pages" />
 			<select name="post_id[]" id="the_posts" multiple="multiple" size="15" style="height: 150px;width:400px;">
 <?php
-		$avail_posts = get_posts();
+		$avail_posts = get_posts('showposts=-1');
 		foreach ( $avail_posts as $post ) :
 ?>
 				<option value="<?php echo esc_attr($post->ID); ?>"<?php selected( true , in_array ( $post->ID , $post_ids ) ); ?>><?php echo wp_specialchars($post->post_title); ?></option>
