@@ -89,16 +89,16 @@ function pr_admin_page () {
 			$pr_options['loginform'] = true;
 		else
 			$pr_options['loginform'] = false;
+		$pr_options['pr_restrict_home'] = (int) $_POST['pr_restrict_home'];
 		update_option ( 'pr_options' , $pr_options );
 		echo '<div id="message" class="updated fade"><p><strong>Settings saved.</strong></p></div>';
-	else :
-		$page_ids = pr_get_opt ( 'pages' );
-		$post_ids = pr_get_opt ( 'posts' );
-                if ( ! is_array ( $page_ids ) )
-                        $page_ids = array ();
-		$pr_method = pr_get_opt ( 'method' );
-		$pr_message = pr_get_opt ( 'message' );
 	endif;
+	$page_ids = pr_get_opt ( 'pages' );
+	$post_ids = pr_get_opt ( 'posts' );
+       if ( ! is_array ( $page_ids ) )
+		$page_ids = array ();
+	$pr_method = pr_get_opt ( 'method' );
+	$pr_message = pr_get_opt ( 'message' );
 ?>
 	<div class="wrap">
 		<h2>Page Restrict Options</h2>
@@ -171,9 +171,7 @@ function pr_admin_page () {
 <?php
 		endforeach;
 ?>
-			</select>
-			
-			
+			</select>		
 <?php
 	endif;
 ?>

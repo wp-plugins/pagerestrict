@@ -79,13 +79,17 @@ function pr_page_restrict ( $pr_page_content ) {
 		( is_array(pr_get_opt('pages')) || is_array(pr_get_opt('posts')) ) 
 		&& ( count(pr_get_opt('pages')) + count(pr_get_opt('posts')) > 0 )
 	);
+	$pr_check = $pr_check || ( pr_get_opt('pr_restrict_home') && is_home() );
 	if ( ! $user_ID  && $pr_check ) :
 		// current post is in either page / post restriction array
 		$is_restricted = ( in_array($post->ID, pr_get_opt('pages')) || in_array($post->ID, pr_get_opt('posts')) ) && pr_get_opt ( 'method' ) != 'none';
 		// content is restricted OR everything is restricted
-		if ( $is_restricted  || pr_get_opt('method') == 'all' ):
+		if ( is_single() && ($is_restricted || pr_get_opt('method') == 'all') ):
 			$pr_page_content = pr_get_page_content();
-		elseif ( ( in_array($post->ID, pr_get_opt('pages')) || in_array($post->ID, pr_get_opt('posts')) ) && ( is_archive () || is_search () ) ) :
+		// home page, archives, search
+		elseif ( ( in_array($post->ID, pr_get_opt('pages')) || in_array($post->ID, pr_get_opt('posts')) || pr_get_opt('method') == 'all' ) 
+				&& ( is_archive() || is_search() || is_home() ) 
+		) :
             $pr_page_content = '<p>' . pr_get_opt ( 'message' )  . '</p>';
             $pr_page_content = str_replace('login', '<a href="' . get_bloginfo ( 'wpurl' ) . '/wp-login.php?redirect_to=' . urlencode($_SERVER['REQUEST_URI'])  . '">login</a>', $pr_page_content);
 		endif;
