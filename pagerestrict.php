@@ -5,7 +5,7 @@ Plugin URI: http://theandystratton.com/pagerestrict
 Description: Restrict certain pages to logged in users
 Author: Matt Martz & Andy Stratton
 Author URI: http://theandystratton.com
-Version: 2.03
+Version: 2.05
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
         Page Restrict is released under the GNU Lesser General Public License (LGPL)
@@ -34,8 +34,8 @@ function pr_get_opt ( $option ) {
 function pr_no_cache_headers () {
 	global $user_ID;
 	get_currentuserinfo ();
-        if ( ! $user_ID ) {
-		nocache_headers ();
+        if ( !is_user_logged_in() ) {
+		nocache_headers();
 	}
 }
 
@@ -73,18 +73,18 @@ function pr_get_page_content() {
 // Perform the restriction and if restricted replace the page content with a login form
 function pr_page_restrict ( $pr_page_content ) {
 	global $user_ID, $post;
-	get_currentuserinfo ();
+	get_currentuserinfo();
 	$pr_check = pr_get_opt('method') == 'all';
 	$pr_check = $pr_check || (
 		( is_array(pr_get_opt('pages')) || is_array(pr_get_opt('posts')) ) 
 		&& ( count(pr_get_opt('pages')) + count(pr_get_opt('posts')) > 0 )
 	);
 	$pr_check = $pr_check || ( pr_get_opt('pr_restrict_home') && is_home() );
-	if ( ! $user_ID  && $pr_check ) :
+	if ( !is_user_logged_in() && $pr_check ) :
 		// current post is in either page / post restriction array
 		$is_restricted = ( in_array($post->ID, pr_get_opt('pages')) || in_array($post->ID, pr_get_opt('posts')) ) && pr_get_opt ( 'method' ) != 'none';
 		// content is restricted OR everything is restricted
-		if ( is_single() && ($is_restricted || pr_get_opt('method') == 'all') ):
+		if ( (is_single() || is_page()) && ($is_restricted || pr_get_opt('method') == 'all') ):
 			$pr_page_content = pr_get_page_content();
 		// home page, archives, search
 		elseif ( ( in_array($post->ID, pr_get_opt('pages')) || in_array($post->ID, pr_get_opt('posts')) || pr_get_opt('method') == 'all' ) 
@@ -100,7 +100,7 @@ function pr_page_restrict ( $pr_page_content ) {
 function pr_comment_restrict ( $pr_comment_array ) {
 	global $user_ID, $post;
 	get_currentuserinfo ();
-    if ( ! $user_ID  && is_array ( pr_get_opt ( 'pages' ) ) ) :
+    if ( ! is_user_logged_in()  && is_array ( pr_get_opt ( 'pages' ) ) ) :
 		$is_restricted = ( in_array($post->ID, pr_get_opt('pages')) || in_array($post->ID, pr_get_opt('posts')) ) && pr_get_opt ( 'method' ) != 'none';
        	if ( $is_restricted || pr_get_opt('method') == 'all' ):
 			$pr_comment_array = array();
