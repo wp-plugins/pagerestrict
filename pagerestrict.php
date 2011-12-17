@@ -5,7 +5,7 @@ Plugin URI: http://theandystratton.com/pagerestrict
 Description: Restrict certain pages to logged in users
 Author: Matt Martz & Andy Stratton
 Author URI: http://theandystratton.com
-Version: 2.05
+Version: 2.06
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
         Page Restrict is released under the GNU Lesser General Public License (LGPL)
@@ -32,11 +32,8 @@ function pr_get_opt ( $option ) {
 // Resolves a problem where users see the login form after logging in and need 
 // to refresh to see content
 function pr_no_cache_headers () {
-	global $user_ID;
-	get_currentuserinfo ();
-        if ( !is_user_logged_in() ) {
+	if ( !is_user_logged_in() )
 		nocache_headers();
-	}
 }
 
 // gets standard page content when page/post is restricted.
@@ -72,8 +69,7 @@ function pr_get_page_content() {
 
 // Perform the restriction and if restricted replace the page content with a login form
 function pr_page_restrict ( $pr_page_content ) {
-	global $user_ID, $post;
-	get_currentuserinfo();
+	global $post;
 	$pr_check = pr_get_opt('method') == 'all';
 	$pr_check = $pr_check || (
 		( is_array(pr_get_opt('pages')) || is_array(pr_get_opt('posts')) ) 
@@ -98,9 +94,8 @@ function pr_page_restrict ( $pr_page_content ) {
 }
 
 function pr_comment_restrict ( $pr_comment_array ) {
-	global $user_ID, $post;
-	get_currentuserinfo ();
-    if ( ! is_user_logged_in()  && is_array ( pr_get_opt ( 'pages' ) ) ) :
+	global $post;
+    if ( !is_user_logged_in()  && is_array ( pr_get_opt ( 'pages' ) ) ) :
 		$is_restricted = ( in_array($post->ID, pr_get_opt('pages')) || in_array($post->ID, pr_get_opt('posts')) ) && pr_get_opt ( 'method' ) != 'none';
        	if ( $is_restricted || pr_get_opt('method') == 'all' ):
 			$pr_comment_array = array();
