@@ -3,6 +3,8 @@ Contributors: theandystratton, sivel
 Tags: pages, page, restrict, restriction, logged in, cms
 Requires at least: 2.6
 Tested up to: 3.3.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: trunk
 
 Restrict certain pages or posts to logged in users.
