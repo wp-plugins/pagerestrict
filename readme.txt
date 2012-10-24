@@ -2,7 +2,7 @@
 Contributors: theandystratton, sivel
 Tags: pages, page, restrict, restriction, logged in, cms
 Requires at least: 2.6
-Tested up to: 3.3.0
+Tested up to: 3.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: trunk
@@ -46,6 +46,9 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 1. Enjoy.
 
 == Changelog ==
+
+= 2.07 = 
+* Added div around output with CSS class (page-restrict-output) for more styling flexibility.
 
 = 2.05 (2011-12-17) =
 * Quick update to remove some outdated functions and global vars (clean up).
