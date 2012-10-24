@@ -64,7 +64,7 @@ function pr_get_page_content() {
 		';
 		$post->comment_status = 'closed';
 	endif;
-	return '<div class="page-restrict-output">' . $pr_page_content . '</div>';
+	return $pr_page_content;
 }
 
 // Perform the restriction and if restricted replace the page content with a login form
