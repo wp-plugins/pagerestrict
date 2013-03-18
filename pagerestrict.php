@@ -5,7 +5,7 @@ Plugin URI: http://theandystratton.com/pagerestrict
 Description: Restrict certain pages to logged in users
 Author: Matt Martz & Andy Stratton
 Author URI: http://theandystratton.com
-Version: 2.07
+Version: 2.1
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
         Page Restrict is released under the GNU Lesser General Public License (LGPL)
@@ -41,10 +41,21 @@ function pr_get_page_content() {
 	$pr_page_content = '
 		<p>' . pr_get_opt ( 'message' )  . '</p>';
 	if ( pr_get_opt ( 'loginform' ) == true ) :
-		if ( ! isset ( $user_login ) )
-			$user_login = '';
+
+		$errors = '';
+		if ( isset( $_GET['wp-error'] ) )
+		{
+			$errors = strip_tags( $_GET['wp-error'] );
+			$errors = str_ireplace( 'Lost your password?', '<a href="' . site_url( '/wp-login.php?action=lostpassword' ) . '">Lost your password?</a>', $errors );
+			$errors = '<div class="pr-message pr-error"><p>' . $errors . '</p></div>';
+		}
+
+		if ( !isset( $user_login ) && isset( $_GET['pr-user-login'] ) )
+			$user_login = sanitize_user( $_GET['pr-user-login'] );
+
 		$pr_page_content .= '
 		<form style="text-align: left;" action="' . get_bloginfo ( 'wpurl' ) . '/wp-login.php" method="post">
+		' . $errors . '
 			<p>
 				<label for="log"><input type="text" name="log" id="log" value="' . wp_specialchars ( stripslashes ( $user_login ) , 1 ) . '" size="22" /> Username</label><br />
 				<label for="pwd"><input type="password" name="pwd" id="pwd" size="22" /> Password</label><br />
@@ -111,4 +122,47 @@ add_action( 'send_headers' , 'pr_no_cache_headers' );
 add_filter ( 'the_content' , 'pr_page_restrict' , 50 );
 add_filter ( 'the_excerpt' , 'pr_page_restrict' , 50 );
 add_filter ( 'comments_array' , 'pr_comment_restrict' , 50 );
-?>
+
+add_action( 'wp_login_failed', 'pr_login_failed', 50, 1 );
+function pr_login_failed( $username = null )
+{
+	$referrer = $_SERVER['HTTP_REFERER'];
+
+	if ( !empty( $referrer ) && !strstr( $referrer, 'wp-login.php' ) && !strstr( $referrer, 'wp-admin' ) )
+	{
+		$params = parse_url( $referrer );		
+		$redirect = $params['scheme'] . '://' . $params['host'] . $params['path'];
+
+		parse_str( $params['query'], $query );
+		$query['login'] = 'failed';
+		
+		if ( is_wp_error( $username ) )
+			$query['wp-error'] = $username->get_error_message();
+
+		if ( isset( $username->user_login ) )
+			$query['pr-user-login'] = $username->user_login;
+
+		if ( count( $query ) > 0 )
+		{
+			$redirect .= '?' . http_build_query( $query );
+		}
+
+		wp_redirect( $redirect, 303 );
+		die;
+	}
+}
+
+if ( sizeof( $_POST ) )
+	add_filter( 'authenticate', 'pr_authenticate', 50, 3 );
+
+function pr_authenticate( $error, $user, $pass )
+{
+	if ( !empty( $user ) )
+		$error->user_login = $_POST['log'];
+
+	if ( is_wp_error( $error ) )
+		do_action( 'wp_login_failed', $error );
+
+	return $error;
+}
+

@@ -47,6 +47,9 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 
 == Changelog ==
 
+= 2.1 =
+* Added login error messaging back to referring URI if the user's login is unsuccessful.
+
 = 2.07 = 
 * Added div around output with CSS class (page-restrict-output) for more styling flexibility.
 
