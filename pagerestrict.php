@@ -5,7 +5,7 @@ Plugin URI: http://theandystratton.com/pagerestrict
 Description: Restrict certain pages to logged in users
 Author: Matt Martz & Andy Stratton
 Author URI: http://theandystratton.com
-Version: 2.1
+Version: 2.1.1
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
         Page Restrict is released under the GNU Lesser General Public License (LGPL)
@@ -57,8 +57,10 @@ function pr_get_page_content() {
 		<form style="text-align: left;" action="' . get_bloginfo ( 'wpurl' ) . '/wp-login.php" method="post">
 		' . $errors . '
 			<p>
-				<label for="log"><input type="text" name="log" id="log" value="' . wp_specialchars ( stripslashes ( $user_login ) , 1 ) . '" size="22" /> Username</label><br />
-				<label for="pwd"><input type="password" name="pwd" id="pwd" size="22" /> Password</label><br />
+				<label for="log"><input type="text" name="log" id="log" value="' . wp_specialchars ( stripslashes ( $user_login ) , 1 ) . '" size="22" /> '
+				. apply_filters( 'pr_username_label', 'Username' ) . '</label><br />
+				<label for="pwd"><input type="password" name="pwd" id="pwd" size="22" /> ' 
+				. apply_filters( 'pr_password_label' , 'Password' ) . '</label><br />
 				<input type="submit" name="submit" value="Log In" class="button" />
 				<label for="rememberme"><input name="rememberme" id="rememberme" type="checkbox" checked="checked" value="forever" /> Remember me</label><br />
 			</p>
@@ -68,7 +70,7 @@ function pr_get_page_content() {
 		';
 		
 		if ( get_option('users_can_register') )
-			$pr_page_content .= '	<a href="' . get_bloginfo ( 'wpurl' ) . '/wp-register.php">Register</a> | ';
+			$pr_page_content .= '	<a href="' . get_bloginfo ( 'wpurl' ) . '/wp-login.php?action=register">Register</a> | ';
 
 		$pr_page_content .= '<a href="' . get_bloginfo ( 'wpurl' ) . '/wp-login.php?action=lostpassword">Lost your password?</a>
 		</p>

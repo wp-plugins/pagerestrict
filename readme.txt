@@ -47,6 +47,9 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 
 == Changelog ==
 
+= 2.1.1 =
+* Added filter for username and password labels in login form. More planned updates in 2014.
+
 = 2.1 =
 * Added login error messaging back to referring URI if the user's login is unsuccessful.
 
