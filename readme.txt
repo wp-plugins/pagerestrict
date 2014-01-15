@@ -47,6 +47,9 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 
 == Changelog ==
 
+= 2.1.2 =
+* Fixed a bug with non-existent post object.
+
 = 2.1.1 =
 * Added filter for username and password labels in login form. More planned updates in 2014.
 
