@@ -5,7 +5,7 @@ Plugin URI: http://theandystratton.com/pagerestrict
 Description: Restrict certain pages to logged in users
 Author: Matt Martz & Andy Stratton
 Author URI: http://theandystratton.com
-Version: 2.1.2
+Version: 2.1.3
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
         Page Restrict is released under the GNU Lesser General Public License (LGPL)
@@ -96,15 +96,17 @@ function pr_page_restrict ( $pr_page_content ) {
 		// content is restricted OR everything is restricted
 		if ( (is_single() || is_page()) && ($is_restricted || pr_get_opt('method') == 'all') ):
 			$pr_page_content = pr_get_page_content();
+			$pr_page_content = '<div class="page-restrict-output">' . $pr_page_content . '</div>';
 		// home page, archives, search
 		elseif ( ( in_array($post->ID, pr_get_opt('pages')) || in_array($post->ID, pr_get_opt('posts')) || pr_get_opt('method') == 'all' ) 
 				&& ( is_archive() || is_search() || is_home() ) 
 		) :
             $pr_page_content = '<p>' . pr_get_opt ( 'message' )  . '</p>';
             $pr_page_content = str_replace('login', '<a href="' . get_bloginfo ( 'wpurl' ) . '/wp-login.php?redirect_to=' . urlencode($_SERVER['REQUEST_URI'])  . '">login</a>', $pr_page_content);
+			$pr_page_content = '<div class="page-restrict-output">' . $pr_page_content . '</div>';
 		endif;
 	endif;
-	return '<div class="page-restrict-output">' . $pr_page_content . '</div>';
+	return $pr_page_content;
 }
 
 function pr_comment_restrict ( $pr_comment_array ) {
