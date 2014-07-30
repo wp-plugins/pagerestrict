@@ -47,6 +47,9 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 
 == Changelog ==
 
+= 2.2.0 =
+* Added filter for modified page content.
+
 = 2.1.3 =
 * Removed div.page-restrict-output from unmodified content output. This was causing theme compatibility issues.
 
