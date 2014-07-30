@@ -103,7 +103,7 @@ function pr_page_restrict ( $pr_page_content ) {
 		) :
             $pr_page_content = '<p>' . pr_get_opt ( 'message' )  . '</p>';
             $pr_page_content = str_replace('login', '<a href="' . get_bloginfo ( 'wpurl' ) . '/wp-login.php?redirect_to=' . urlencode($_SERVER['REQUEST_URI'])  . '">login</a>', $pr_page_content);
-			$pr_page_content = '<div class="page-restrict-output">' . $pr_page_content . '</div>';
+			$pr_page_content = '<div class="page-restrict-output">' . apply_filters( 'pr_message_content', $pr_page_content ) . '</div>';
 		endif;
 	endif;
 	return $pr_page_content;
