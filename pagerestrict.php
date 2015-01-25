@@ -50,14 +50,18 @@ function pr_get_page_content() {
 			$errors = '<div class="pr-message pr-error"><p>' . $errors . '</p></div>';
 		}
 
+		$user_login = '';
+		
 		if ( !isset( $user_login ) && isset( $_GET['pr-user-login'] ) )
+		{
 			$user_login = sanitize_user( $_GET['pr-user-login'] );
+		}
 
 		$pr_page_content .= '
 		<form style="text-align: left;" action="' . get_bloginfo ( 'wpurl' ) . '/wp-login.php" method="post">
 		' . $errors . '
 			<p>
-				<label for="log"><input type="text" name="log" id="log" value="' . wp_specialchars ( stripslashes ( $user_login ) , 1 ) . '" size="22" /> '
+				<label for="log"><input type="text" name="log" id="log" value="' . esc_html ( stripslashes ( $user_login ) , 1 ) . '" size="22" /> '
 				. apply_filters( 'pr_username_label', 'Username' ) . '</label><br />
 				<label for="pwd"><input type="password" name="pwd" id="pwd" size="22" /> ' 
 				. apply_filters( 'pr_password_label' , 'Password' ) . '</label><br />
@@ -138,7 +142,11 @@ function pr_login_failed( $username = null )
 		$params = parse_url( $referrer );		
 		$redirect = $params['scheme'] . '://' . $params['host'] . $params['path'];
 
-		parse_str( $params['query'], $query );
+		$query = false;
+		
+		if ( isset( $params['query'] ) )
+			parse_str( $params['query'], $query );
+
 		$query['login'] = 'failed';
 		
 		if ( is_wp_error( $username ) )
