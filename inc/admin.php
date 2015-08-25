@@ -112,7 +112,7 @@ function pr_admin_page () {
 						Restriction Message
 					</th>
 					<td>
-						<textarea cols="64" rows="4" name="message"><?php echo esc_html( $pr_message ); ?></textarea>
+						<textarea cols="64" rows="4" name="message"><?php echo esc_textarea( $pr_message ); ?></textarea>
 						<br />
 						This field can contain HTML.
 					</td>
