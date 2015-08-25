@@ -68,14 +68,17 @@ function pr_filter_plugin_actions ( $links ) {
 // The options page
 function pr_admin_page () {
 	pr_ver_check ();
+	
 	if ( $_POST && $_POST['action'] == 'update' ) :
-		if ( $_POST['update'] == 'pages' ) :
+
+		if ( isset( $_POST['update'] ) && $_POST['update'] == 'pages' ) :
 			$page_ids = $_POST['page_id'];
 			$post_ids = $_POST['post_id'];
 		else :
 			$page_ids = pr_get_opt ( 'pages' );	
 			$post_ids = pr_get_opt ( 'posts' );	
 		endif;
+
 		if ( ! is_array ( $page_ids ) ) 
 		$page_ids = array ();
 		$pr_options['pages'] = $page_ids;
@@ -85,11 +88,13 @@ function pr_admin_page () {
 		$pr_options['version'] = pr_get_opt ( 'version' );
 		$pr_message = stripslashes($_POST['message']);
 		$pr_options['message'] = $pr_message;
+
 		if ( $_POST['loginform'] == 'true' )
 			$pr_options['loginform'] = true;
 		else
 			$pr_options['loginform'] = false;
-		$pr_options['pr_restrict_home'] = (int) $_POST['pr_restrict_home'];
+		
+		$pr_options['pr_restrict_home'] = isset( $_POST['pr_restrict_home'] ) ? (int) $_POST['pr_restrict_home'] : 0;
 		update_option ( 'pr_options' , $pr_options );
 		echo '<div id="message" class="updated fade"><p><strong>Settings saved.</strong></p></div>';
 	endif;
