@@ -47,6 +47,9 @@ NOTE: See "Other Notes" for Upgrade and Usage Instructions as well as other pert
 
 == Changelog ==
 
+= 2.2.2 =
+* Updated possible security flaw.
+
 = 2.2.0 =
 * Added filters for modified page/post excerpt/archive content.
 

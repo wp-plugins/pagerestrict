@@ -102,17 +102,17 @@ function pr_admin_page () {
 ?>
 	<div class="wrap">
 		<h2>Page Restrict Options</h2>
-		<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+		<form action="" method="post">
                         <input type="hidden" name="action" value="update" />
 			<h3>General Options</h3>
-			<p>These options pertain to the gerneral operation of the plugin</p>
+			<p>These options pertain to the general operation of the plugin</p>
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row">
 						Restriction Message
 					</th>
 					<td>
-						<textarea cols="64" rows="4" name="message"><?php echo $pr_message; ?></textarea>
+						<textarea cols="64" rows="4" name="message"><?php echo esc_html( $pr_message ); ?></textarea>
 						<br />
 						This field can contain HTML.
 					</td>

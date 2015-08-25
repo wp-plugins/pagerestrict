@@ -5,7 +5,7 @@ Plugin URI: http://theandystratton.com/pagerestrict
 Description: Restrict certain pages to logged in users
 Author: Matt Martz & Andy Stratton
 Author URI: http://theandystratton.com
-Version: 2.2.1
+Version: 2.2.2
 
 	Copyright (c) 2008 Matt Martz (http://sivel.net)
         Page Restrict is released under the GNU Lesser General Public License (LGPL)
@@ -68,7 +68,7 @@ function pr_get_page_content() {
 				<input type="submit" name="submit" value="Log In" class="button" />
 				<label for="rememberme"><input name="rememberme" id="rememberme" type="checkbox" checked="checked" value="forever" /> Remember me</label><br />
 			</p>
-			<input type="hidden" name="redirect_to" value="' . $_SERVER['REQUEST_URI'] . '" />
+			<input type="hidden" name="redirect_to" value="" />
 		</form>
 		<p>
 		';
